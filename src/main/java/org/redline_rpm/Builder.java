@@ -97,6 +97,7 @@ public class Builder {
 	 * Initializes the builder and sets some required fields to known values.
 	 */
 	public Builder() {
+		System.out.println("builder()");
 		format.getHeader().createEntry( HEADERI18NTABLE, "C");
 		format.getHeader().createEntry( BUILDTIME, ( int) ( System.currentTimeMillis() / 1000));
 		format.getHeader().createEntry( RPMVERSION, "4.4.2");
@@ -149,11 +150,15 @@ public class Builder {
 	}
 	
 	public void addProvides(final String name, final String version) {
+		System.out.println("before Builder.addProvides provides.length = " + provides.size());
 		provides.add(new Dependency(name, version, version.length() > 0 ? EQUAL : 0));
+		System.out.println("after Builder.addProvides provides.length = " + provides.size());
 	}
 
 	protected void addProvides(final CharSequence name, final CharSequence version, final int flag) {
+		System.out.println("before Builder.addProvides provides.length = " + provides.size());
 		provides.add(new Dependency(name.toString(), version.toString(), flag));
+		System.out.println("after Builder.addProvides provides.length = " + provides.size());
 	}
 	
 	/**
@@ -339,6 +344,7 @@ public class Builder {
 	 *         dashes, as they are explicitly disallowed by RPM file format.
 	 */
 	public void setPackage( final CharSequence name, final CharSequence version, final CharSequence release, final int epoch) {
+		System.out.println("Builder.setPackage()");
 		checkVariableContainsIllegalChars(ILLEGAL_CHARS_NAME, name, "name");
 		checkVariableContainsIllegalChars(ILLEGAL_CHARS_VARIABLE, version, "version");
 		checkVariableContainsIllegalChars(ILLEGAL_CHARS_VARIABLE, release, "release");
@@ -496,6 +502,7 @@ public class Builder {
 	 * @param provides dependency provided by this package.
 	 */
 	public void setProvides( final CharSequence provides) {
+		System.out.println("Builder.setProvides(" + provides + ")");
 		if ( provides != null) {
 			this.provides.clear();
 			addProvides( provides, "", EQUAL);
